@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Find Ticket | IT Help Desk{% endblock %}
+{% block content %}
+<section class="hero compact"><div><p class="eyebrow">TICKET LOOKUP</p><h1>Find a Ticket</h1><p class="muted">Search support requests using their ticket ID.</p></div></section>
+<section class="panel narrow">
+  <form action="{{ url_for('search_ticket') }}" method="get" class="searchbar"><input type="number" name="ticket_id" value="{{ query }}" placeholder="Enter ticket ID"><button class="btn primary">Search</button></form>
+  {% if ticket %}
+  <div class="ticket-detail">
+    <div class="detail-head"><h2>Ticket #{{ ticket["ticket id"] }}</h2><span class="badge status-{{ ticket['status']|replace(' ', '-') }}">{{ ticket["status"]|title }}</span></div>
+    <p><b>Employee:</b> {{ ticket["employee name"] }}</p><p><b>Category:</b> {{ ticket["category"] }}</p><p><b>Problem:</b> {{ ticket["problem"] }}</p><p><b>Priority:</b> <span class="badge {{ ticket['priority'] }}">{{ ticket["priority"]|title }}</span></p>
+    <a class="btn primary" href="{{ url_for('update_ticket', ticket_id=ticket['ticket id']) }}">Update Ticket</a>
+  </div>
+  {% elif query %}<p class="muted">No matching ticket was found.</p>{% endif %}
+</section>
+{% endblock %}

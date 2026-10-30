@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Update Ticket | IT Help Desk{% endblock %}
+{% block content %}
+<section class="hero compact"><div><p class="eyebrow">MANAGE REQUEST</p><h1>Update Ticket #{{ ticket["ticket id"] }}</h1><p class="muted">Change the status, priority or problem description.</p></div></section>
+<section class="panel narrow">
+  <form method="post" class="ticket-form">
+    <label>Employee Name<input value="{{ ticket['employee name'] }}" disabled></label>
+    <label>Category<input value="{{ ticket['category'] }}" disabled></label>
+    <label>Problem Description<textarea name="problem" rows="4" required>{{ ticket["problem"] }}</textarea></label>
+    <div class="two-col">
+      <label>Priority<select name="priority"><option value="low" {% if ticket["priority"]=="low" %}selected{% endif %}>Low</option><option value="medium" {% if ticket["priority"]=="medium" %}selected{% endif %}>Medium</option><option value="high" {% if ticket["priority"]=="high" %}selected{% endif %}>High</option></select></label>
+      <label>Status<select name="status"><option value="open" {% if ticket["status"]=="open" %}selected{% endif %}>Open</option><option value="in progress" {% if ticket["status"]=="in progress" %}selected{% endif %}>In Progress</option><option value="closed" {% if ticket["status"]=="closed" %}selected{% endif %}>Closed</option></select></label>
+    </div>
+    <div class="button-row"><button class="btn primary" type="submit">Save Changes</button><a class="btn light" href="{{ url_for('home') }}">Cancel</a></div>
+  </form>
+</section>
+{% endblock %}
